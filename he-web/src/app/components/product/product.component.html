@@ -1,0 +1,232 @@
+<div class='row'>
+    <div class="offset-md-1 col-md-10" style='width:100%;'>
+        <!-- Product Section -->
+        <div class='row' style='margin: 3% 0;' *ngIf='product.hasOwnProperty("images")'>
+            <!-- Images Side -->
+            <div class='col-md'>
+                <div id="carouselExampleFade" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" *ngFor='let image of product.images; let c=index;' [class.active]='c<1' style='text-align:center;'>
+                            <button style='border:none; background-color: white;' (click)=showModal(image.image) data-target='#exampleModal' data-toggle='modal'>
+                                <img class='img-thumbnail' src='http://localhost:8000{{image.image}}' alt='..' style="width:100%; height: 100%;" />
+                            </button>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev" >
+                        <span class="carousel-control" aria-hidden="true">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="#ff5e00" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                            </svg>
+                        </span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                        <span class="carousel-control" aria-hidden="true">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="#ff5e00" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                            </svg>
+                        </span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+
+            
+            <!-- Options Side -->
+            <div class='col-md' style="width:100%; height: 100%;">
+                <span class='product'>{{ product.title }}</span>
+                <br />
+                <span *ngFor='let i of counter(product.rating)'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff5e00" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>
+                </span>
+                <br />
+                <span> {{ product.review_count }} Reviews | </span>
+                <span (click)='review_show()' style='border: 1px solid darkgray; font-size: smaller; padding: 5px; cursor: pointer; box-shadow: 0px 2px 5px #bdbbb9;'> Add Your Review </span><br />
+
+                <form [formGroup]="rateFormGroup" (ngSubmit)="onRateSubmit(product.id)" [hidden]='show_rate' style='margin-top: 15px;'>
+                    <div class='row'>
+                        <div class='col-md-6 col-12'>
+                            <input type='text' placeholder='Full Name' class='username' formControlName='name' />
+                        </div>
+                        <div class='col-md-6 col-12'>
+                            <input type="range" min="1" max="5" step='1' value="2" class="slider" name="foo" style='width:100%' formControlName='rating' />
+                        </div>
+                        <div class='col-md-12 col-12'>
+                            <br />
+                            <textarea placeholder='Write Your Comment Here' formControlName='comment'></textarea>
+                        </div>
+                        <div class='col-md-12 col-12'>
+                            <button type='submit' class='btn submit_btn'>Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+                <span class='final_price'>{{ product.final_price | currency:"&#8377;" }}</span>
+                <br />
+                <p>
+                    <span class='actual_price'>{{ product.mrp | currency:"&#8377;" }}</span>
+                    <span class='offer'> {{ product.discount_str }} Off</span>
+                </p>
+                <p>
+                    <span><b>Sold By :</b></span>
+                    <span>  {{ product.shop_name }}</span>
+                </p>
+                <hr />
+                
+                <p>
+                    <span class='description_title'>PRODUCT DESCRIPTION</span><br />
+                    <span class='description_content'>
+                        {{ product.description }}
+                    </span>
+                </p>
+                <hr />
+
+                <!-- Not In Cart -->
+                <div  *ngIf="cart_quantity == 0">
+                    <p>
+                        <span style='font-size:small; font-weight: lighter; color: gray;'>Availability : </span> 
+                        <span style='font-size:small; font-weight: lighter; color: black;'> {{ product.is_available }}</span>
+                        <br />
+
+                        <span style='font-size:small; font-weight: lighter; color: gray;'> Quantity : </span>
+                        <span>
+                            <button class='substract_quantity' (click)='decrementQuantity()'>
+                                <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                </svg>
+                            </button>
+                            <span class='quantity_text'> {{ local_quantity }} </span>
+                            <button class='add_quantity' (click)='incrementQuantity()'>
+                                <svg width="1.3em" height="1.3em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                            </button>
+                        </span>
+                    </p>
+                    
+                    <!-- <h6 style='font-weight: lighter; color: rgba(19, 19, 19, 0.7); margin: 10px 0;'>Select Size</h6>
+                    <p>
+                        <span><button class='size_btn'>S</button></span>
+                        <span><button class='size_btn'>M</button></span>
+                        <span><button class='size_btn'>L</button></span>
+                        <span><button class='size_btn'>XL</button></span>
+                        <span><button class='size_btn'>2XL</button></span>
+                        <span><button class='size_btn'>3XL</button></span>
+                    </p> -->
+                    <span>
+                        <a [routerLink]='["/account/wishlist-user"]'>
+                            <button class='in_wishlist' *ngIf='isInWishlist'>
+                                Go To Wishlist
+                            </button>
+                        </a>
+                        <button class='add_wishlist_btn' (click)='addToWishlist(product.id)' *ngIf='!isInWishlist'>
+                            Add To Wishlist
+                        </button>
+                        <button class='add_cart_btn' (click)='addToCart()'>Add To Cart</button>
+                    </span>    
+                </div>
+
+                <!-- In Cart -->
+                <div *ngIf='cart_quantity > 0'>
+                    <p>
+                        <span style='font-size:10px; font-weight: lighter; color: gray;'> Quantity : </span>
+                        <span class='quantity_text'> {{ cart_quantity }} </span>
+                    </p>
+                    <span>
+                        <a [routerLink]='["/cart"]'>
+                            <button class='add_cart_btn'>GO TO CART</button>
+                        </a>
+                    </span>
+                </div>
+                <br />
+                <button class='btn available_btn' (click)='showAvailable()'>Check For Availability</button>
+                <br />
+                <form [formGroup]="detectGroup" (ngSubmit)="onDetectSubmit(product.id)" [hidden]='show_available' style='margin-top: 15px;'>
+                    <div class='row'>
+                        <div class='col-md-10 col-9'>
+                            <input type='text' placeholder='Pincode' class='username' formControlName='pincode' height="24px" />
+                        </div>
+                        <div class='col-md-2 col-3'>
+                            <button type='submit' class='btn submit_btn'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ff5e00" class="bi bi-joystick" viewBox="0 0 16 16">
+                                    <path d="M10 2a2 2 0 0 1-1.5 1.937v5.087c.863.083 1.5.377 1.5.726 0 .414-.895.75-2 .75s-2-.336-2-.75c0-.35.637-.643 1.5-.726V3.937A2 2 0 1 1 10 2z"/>
+                                    <path d="M0 9.665v1.717a1 1 0 0 0 .553.894l6.553 3.277a2 2 0 0 0 1.788 0l6.553-3.277a1 1 0 0 0 .553-.894V9.665c0-.1-.06-.19-.152-.23L9.5 6.715v.993l5.227 2.178a.125.125 0 0 1 .001.23l-5.94 2.546a2 2 0 0 1-1.576 0l-5.94-2.546a.125.125 0 0 1 .001-.23L6.5 7.708l-.013-.988L.152 9.435a.25.25 0 0 0-.152.23z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <br />
+
+                <!-- For Linked -->
+                <div class='linked'>
+                    <h6 style='font-weight:bolder; color: rgb(110, 109, 109); font-family: Arial;'>Also sold by Sellers:</h6>
+                    <div class='row'>
+                        <div class='col-md-3 col-6'>
+                            <div class='other_retailer'>
+                                <h6 style='font-size: small; text-align: center;'>Jagdamba General Store</h6>
+                                <button class='price_btn'>{{ product.mrp | currency:"&#8377;" }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <span style='margin-left: 10px; text-decoration: underline; color: gray; font-weight: lighter; cursor: pointer;' data-toggle='modal' data-target='#mapModal' (click)='showOnMap()'>View more on Map</span>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="tab">
+            <button class="tablinks" (click)="openBlock($event, 'Description')">Description</button>
+            <button class="tablinks" (click)="openBlock($event, 'Details')">Details</button>
+            <button class="tablinks" (click)="openBlock($event, 'Reviews')">Reviews</button>
+        </div>
+          
+        <div id="Description" class="tabcontent">
+            <p *ngIf='product.hasOwnProperty("description")'>{{ product.description }}</p>
+        </div>
+          
+        <div id="Details" class="tabcontent" *ngIf='product.hasOwnProperty("details")'>
+            <p>Details is the capital of France.</p> 
+            <table class="table table-sm table-responsive-md table-light" *ngIf="product.details.length >0">
+                <thead>
+                    <tr>
+                        <th scope="col">Feature</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let pair of product.details'>
+                        <th scope="row">{{ pair.key | uppercase }}</th>
+                        <td>{{ pair.value | uppercase }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+          
+        <div id="Reviews" class="tabcontent" *ngIf='product.hasOwnProperty("reviews")'>
+            <div class='row' *ngIf="product.reviews.length >0">
+                <div class='col-md-3 col-6' *ngFor='let review of product.reviews'>
+                    <app-content [review]='review'></app-content>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" id='productImage'>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div id='mapid' style='height: 450px;'></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

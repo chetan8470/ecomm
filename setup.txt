@@ -1,0 +1,14 @@
+BACKEND SETUP
+
+1. Create an Python 3  Enviornment
+2. Install All requierment library from requirements.txt =>  pip install -r requirements.txt
+3. Add Email and Passownr in .env file
+4. Activate enviornment
+5. Run server => python manage.py runserver
+6. No Need makemigrations and migrate command because db.sqlite already attached
+
+Frontend Setup
+
+1. GO Into Project
+2. install all dependencies => npm install
+3. run frontend => ng server

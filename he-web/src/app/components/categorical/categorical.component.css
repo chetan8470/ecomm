@@ -1,0 +1,107 @@
+.title {
+    color: black;
+    font-weight: bolder;
+    font-size: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.row {
+    margin: 0;
+    padding: 0;
+  }
+  
+.items {
+    color: gray;
+    font-weight: bolder;
+    font-size: medium;
+}
+
+.cat_banner {
+    width: 45%;
+    height: 200px;
+    border: 1px solid grey;
+}
+
+.drop_block select {
+    border: none;
+    background-color: white;
+    padding: 5px;
+    color: rgb(53, 53, 53);
+}
+
+.drop_block option {
+    padding: 1% 2%;
+}
+.drop_block {
+    float: right;
+    width: fit-content;
+    padding: 1% 2%;
+    border: 1px solid gray;
+}
+
+.sort {
+    font-weight: lighter;
+    font-size: small;
+    color: gray;
+}
+
+ul {
+    list-style-type: circle;
+}
+
+li {
+    background-color: white;
+    padding: 1% 2%;
+    margin: 1% 0;
+}
+
+.subcat {
+    font-size: medium;
+    font-family: 'Times New Roman', Times, serif;
+    color: gray;
+    font-weight: bolder;
+}
+
+.sub_cat {
+    width: 100%;
+    -moz-box-shadow: 0px 4px 10px 10px rgba(235, 235, 233, 0.5);
+    -webkit-box-shadow: 0px 4px 10px 10px rgba(235, 235, 233, 0.1);
+    box-shadow: 0px 4px 10px 10px rgba(235, 235, 233, 0.1);
+    border-radius: 2%;
+    padding: 10px;
+    border: none;
+    background-color: white;
+    border-bottom: 1px solid darkgray;
+}
+.sub {
+    border: none; 
+    background-color: white;
+    font-size: large;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.sub_cat option {
+    background-color: white;
+    text-indent: 1%;
+}
+
+.pagenation {
+    text-align: center;
+}
+
+.filters {
+    display: inline-block;
+    border: none;
+    background-color: red;
+    padding: 5px;
+    color: white;
+    font-size: small;
+    border-radius: 2px;
+}
+
+.filt_title {
+    font-size: medium;
+    font-weight: bold;
+    color: rgb(95, 93, 93);
+    font-family: Arial;
+    margin-right: 10px;
+}

@@ -1,0 +1,135 @@
+.categories, .brands, .price, .sub_categories {
+    color: black;
+    font-weight: bolder;
+    font-size: small;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 12px;
+    background-color: white;
+    border: 1px solid  rgb(160, 158, 158);
+    border-radius: 1px;
+}
+
+.fea_title {
+    color: black;
+    font-weight: bold;
+    font-size: small;
+    max-height: 10px;
+}
+
+.fea_cat {
+    color: gray;
+    font-weight: lighter;
+    font-size: 10px;
+}
+
+.fea_price {
+    color: black;
+    font-weight: lighter;
+    font-size: small;
+}
+
+.row {
+    margin: 0;
+    padding: 0;
+  }
+  
+.options {
+    text-align: right;
+    padding: 2px;
+}
+
+
+.sort {
+    color: rgb(27, 27, 27);
+    margin: 0;
+    padding: 1% 2%;
+    border: 2px solid gray;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.listing, .griding {
+    margin-left: 3px;
+    border: none;
+}
+
+.listing:hover, .griding:hover {
+    -moz-box-shadow: 0px 3px 8px #ff5e00;
+    -webkit-box-shadow: 0px 3px 8px #ff5e00;
+    box-shadow: 0px 3px 8px #ff5e00;
+   
+}
+
+.category_text {
+    color: rgb(143, 143, 145);
+    font-weight: lighter;
+    font-size: 10px;
+}
+
+.product_title {
+    color: rgb(17, 17, 17);
+    font-weight: bolder;
+    font-size: 12px;
+}
+
+.price_product {
+    color: rgb(17, 17, 17);
+    font-weight: lighter;
+    font-size: smaller;
+    padding: 6px 3px;
+}
+
+
+.cart {
+    padding: 2px 8px;
+    background-color: rgba(97, 95, 95, 0.412);
+    border-radius: 50%;
+    border: none;
+}
+
+.cart:hover, .cart:active {
+    border: none;
+    background-color: #ff5e00;
+    -moz-box-shadow: 0px 3px 8px #ff5e00;
+    -webkit-box-shadow: 0px 3px 8px #ff5e00;
+    box-shadow: 0px 3px 8px #ff5e00;
+} 
+
+
+.card:hover, .pp:hover {
+    -moz-box-shadow: 0px 3px 8px rgb(152, 169, 122);
+    -webkit-box-shadow: 0px 3px 8px rgb(152, 169, 122);
+    box-shadow: 0px 3px 8px rgb(152, 169, 122);
+}
+
+.pagination {
+    text-align: center;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.add_wishlist_btn{
+    background-color: white;
+    border: none;
+}
+
+.add_wishlist_block:hover .add_wishlist_btn  {
+    color: #ff5e00;
+}
+
+@media only screen and (max-width: 767px) {
+    .con {
+        margin-left: 0px;
+    }
+}
+
+.filter_title {
+    color: gray;
+    font-weight: bold;
+    font-size: larger;
+    font-family: Arial, Helvetica, sans-serif;
+}

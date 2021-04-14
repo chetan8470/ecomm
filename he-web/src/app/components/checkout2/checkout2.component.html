@@ -1,0 +1,81 @@
+<div class='container'>
+    <div class='row' style='margin: 1% 0;'>
+        <div class='col-md' style='padding:2% 1%;'>
+            <h6 style='font-weight:bolder; margin-bottom: 3%;'>Choose Shipping Options :</h6>
+            <div *ngIf='caddress.hasOwnProperty("id")'>
+                <b>Delivery To: </b>
+                <span class='address' *ngIf='caddress.add_type == 1'>HOME</span> 
+                <span class='address' *ngIf='caddress.add_type == 2'>WORK</span>,
+                <span class='address'>
+                    {{ caddress.locality }} {{ caddress.caddress }} Near {{ caddress.landmark }} {{ caddress.pincode.city.city_name }}, {{ caddress.pincode.city.state.state_name }} - {{ caddress.pincode.pincode }}
+                </span>
+            </div>
+
+            <table class="table table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Seller</th>
+                        <th scope="col">Shipping Method</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pro of products; index as i;">
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                            <span class='pro_title'>
+                                {{ pro.title }}
+                            </span><br />
+                            <span>
+                                {{ pro.final | currency:"&#8377;"}}
+                            </span><br />
+                            <span class='qty'>
+                                Quantity {{ pro.quantity }}
+                            </span>
+                        </td>
+                        <td>
+                            <span>
+                                {{ pro.shop_name }}
+                            </span><br />
+                            <span>
+                                <b>Address: </b>
+                                {{ pro.seller_address }}
+                            </span>
+                        </td>
+                        <td style='text-align:left;'>
+                            <p *ngIf='pro.shipping != 2'>
+                                <span>
+                                    <input type='radio' name='ship' value='1' (change)='chooseShippingOption($event, pro)' [checked]='pro.shipping_method == 1' />
+                                </span>
+                                <span>
+                                    Shipping By Seller
+                                </span>
+                            </p>
+
+                            <p>
+                                <span>
+                                    <input type='radio' name='ship' value='2' (change)='chooseShippingOption($event, pro)' [checked]='pro.shipping_method == 2' />
+                                </span>
+                                <span>
+                                    Deliver By Hauch
+                                </span>
+                            </p>
+
+                            <p>
+                                <span>
+                                    <input type='radio' name='ship' value='3' (change)='chooseShippingOption($event, pro)' [checked]='pro.shipping_method == 3' />
+                                </span>
+                                <span>
+                                    Pick from Store
+                                </span>
+                            </p>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

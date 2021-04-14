@@ -1,0 +1,23 @@
+<div style='width: 100%; text-align: center;'>
+    <p class='result_title'>Searched Products <br /><b>"{{ query | titlecase }}"</b>        
+    </p>
+    <hr style='height: 2px; width: 10px; background-color: #ff5e00; padding: 0 20%;' />
+</div>
+
+<div class='row'>
+    <div class='col-md-12 col-12' style='text-align: right;'>
+        <select class='sort' (change)="onChange($event.target.value)">
+            <option *ngFor='let opt of sorting_options' [value]="opt.value">{{ opt.viewValue}}</option>
+        </select>
+    </div>
+</div>
+<br />
+
+<div *ngIf='products.length > 0'>
+    <div class='row'>
+        <div *ngFor='let pro of products' class='col-md-2 col-6'>
+            <app-product-template [product]='pro'></app-product-template>
+        </div>
+    </div>
+    <br />
+</div>
